@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-// import { IStoreType } from './types';
+// import { Dispatch } from 'redux';
+import { IStoreType } from './storeType';
 import * as actions from './actions';
 
 import { Layout, Menu, Breadcrumb } from 'antd';
 const { Header, Content, Footer } = Layout;
 
-interface IProps {
+interface IProps extends IStoreType {
   getInitialData: () => void;
 }
 
@@ -34,7 +34,7 @@ class Playlist extends React.Component<IProps, {}> {
             <Breadcrumb.Item>List</Breadcrumb.Item>
             <Breadcrumb.Item>App</Breadcrumb.Item>
           </Breadcrumb>
-          <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>Content</div>
+          <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>{this.props.all.name}</div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
           Ant Design ©2018 Created by Ant UED
@@ -44,23 +44,21 @@ class Playlist extends React.Component<IProps, {}> {
   }
 
   public componentDidMount() {
-    // fetch("http://localhost:4000/playlist/catlist").then(res => res.json()).then((resJson: IStoreType) => {
-    //   console.log(resJson.all.category);
-    // });
     this.props.getInitialData();
   }
 };
 
-// export function mapStateToProps(state: IStoreType) {
-//   return {
-//     all: state.all,
-//   };
-// }
+function mapStateToProps(state: IStoreType) {
+  console.log(state)
+  return {
+    ...state,
+  };
+}
 
-export function mapDispatchToProps(dispatch: Dispatch<actions.actionType>) {
+function mapDispatchToProps(dispatch: any) {
   return {
     getInitialData: () => dispatch(actions.getInitialData()),
   }
 }
 
-export default connect(null, mapDispatchToProps)(Playlist);
+export default connect(mapStateToProps, mapDispatchToProps)(Playlist);

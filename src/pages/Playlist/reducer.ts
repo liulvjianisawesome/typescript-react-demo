@@ -1,6 +1,6 @@
 import { actionType } from "./actions";
-import { IStoreType } from "./types";
-import { PLAYLIST_GETINITIALDATA } from "./constant";
+import { IStoreType } from "./storeType";
+import { SET_STORE } from "./constant";
 
 const initialState: IStoreType = {
   all: {
@@ -17,10 +17,10 @@ const initialState: IStoreType = {
 
 export default function reducer(state: IStoreType = initialState, action: actionType): IStoreType {
   switch (action.type) {
-    case PLAYLIST_GETINITIALDATA:
-      console.log("reducer")
+    case SET_STORE:
       return {
-        ...state
+        ...action.data,
       }
   }
+  return state;
 }
