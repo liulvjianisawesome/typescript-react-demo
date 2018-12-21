@@ -1,3 +1,3 @@
-import { pingEpic } from '../pages/Playlist/epics';
+import { getInitialDataEpic } from '../pages/Playlist/epics';
 
-export default pingEpic;
+export default getInitialDataEpic;
