@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-// import { Dispatch } from 'redux';
+import { Dispatch } from 'redux';
 import { IStoreType } from './storeType';
 import * as actions from './actions';
 
@@ -49,15 +49,14 @@ class Playlist extends React.Component<IProps, {}> {
 };
 
 function mapStateToProps(state: IStoreType) {
-  console.log(state)
   return {
     ...state,
   };
 }
 
-function mapDispatchToProps(dispatch: any) {
+function mapDispatchToProps(dispatch: Dispatch<actions.actionType>) {
   return {
-    getInitialData: () => dispatch(actions.getInitialData()),
+    getInitialData: () => dispatch(actions.getInitialDataAction()),
   }
 }
 

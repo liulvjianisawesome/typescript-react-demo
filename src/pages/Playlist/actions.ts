@@ -1,15 +1,16 @@
-import { SET_STORE } from "./constant";
+import { PLAYLIST_GETINITIALDATA, SET_STORE } from "./constant";
 import { IStoreType } from "./storeType";
-import { Dispatch } from "redux";
 
 export interface ISetStoreAction {
   type: SET_STORE;
   data: IStoreType;
 };
 
-export type PlaylistGetInitialData = (dispatch: Dispatch<actionType>) => void;
+export interface IGetinitialDataAction {
+  type: PLAYLIST_GETINITIALDATA;
+}
 
-export type actionType = ISetStoreAction;
+export type actionType = ISetStoreAction | IGetinitialDataAction;
 
 export function getSetStoreAction(data: IStoreType): ISetStoreAction {
   return {
@@ -18,11 +19,8 @@ export function getSetStoreAction(data: IStoreType): ISetStoreAction {
   };
 };
 
-export function getInitialData(): PlaylistGetInitialData {
-  return (dispatch: Dispatch<actionType>) => {
-    fetch("http://localhost:4000/playlist/catlist").then(res => res.json()).then(resJson => {
-      resJson.type = "llj";
-      dispatch(getSetStoreAction(resJson));
-    });
+export function getInitialDataAction(): IGetinitialDataAction {
+  return {
+    type: PLAYLIST_GETINITIALDATA,
   };
 };
