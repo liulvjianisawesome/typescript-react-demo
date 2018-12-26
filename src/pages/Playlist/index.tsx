@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import { IStoreType } from './storeType';
 import * as actions from './actions';
 
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Cascader } from 'antd';
 const { Header, Content, Footer } = Layout;
 
 interface IProps extends IStoreType {
@@ -13,6 +13,41 @@ interface IProps extends IStoreType {
 
 class Playlist extends React.Component<IProps, {}> {
   public render() {
+    const {
+      categories,
+      sub,
+    } = this.props;
+
+    interface IOptions {
+      value: string;
+      label: string;
+      children?: IOptions[];
+    }
+
+    const options: IOptions[] = [{
+      value: "",
+      label: "",
+    }];
+
+    const categoriesKeys = Object.keys(categories);
+    for (const key of categoriesKeys) {
+      const subCategories = sub && sub.filter(item => String(item.category) === key);
+      const children = [];
+      if (subCategories && subCategories.length > 0) {
+        for (const item of subCategories) {
+          children.push({
+            value: item.name,
+            label: item.name,
+          });
+        }
+      }
+      options.push({
+        value: key,
+        label: categories[key],
+        children,
+      });
+    }
+
     return (
       <Layout>
         <Header>
@@ -29,11 +64,7 @@ class Playlist extends React.Component<IProps, {}> {
           </Menu>
         </Header>
         <Content style={{ padding: '0 50px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
+          <Cascader options={options} placeholder="选择分类" />
           <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>{this.props.all.name}</div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>

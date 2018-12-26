@@ -3,6 +3,7 @@ import { IStoreType } from "./storeType";
 import { SET_STORE } from "./constant";
 
 const initialState: IStoreType = {
+  code: 0,
   all: {
     category: 1,
     hot: false,
@@ -12,7 +13,14 @@ const initialState: IStoreType = {
     resourceCount: 1,
     resourceType: 1,
     type: 1,
-  }
+  },
+  categories: {
+    0: "语种",
+    1: "风格",
+    2: "场景",
+    3: "情感",
+    4: "主题",
+  },
 };
 
 export default function reducer(state: IStoreType = initialState, action: actionType): IStoreType {
