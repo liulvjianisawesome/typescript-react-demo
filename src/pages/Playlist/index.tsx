@@ -11,18 +11,18 @@ interface IProps extends IStoreType {
   getInitialData: () => void;
 }
 
+interface IOptions {
+  value: string;
+  label: string;
+  children?: IOptions[];
+}
+
 class Playlist extends React.Component<IProps, {}> {
   public render() {
     const {
       categories,
       sub,
     } = this.props;
-
-    interface IOptions {
-      value: string;
-      label: string;
-      children?: IOptions[];
-    }
 
     const options: IOptions[] = [{
       value: "",
