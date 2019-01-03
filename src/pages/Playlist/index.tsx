@@ -96,7 +96,7 @@ function mapStateToProps(state: RootStoreType) {
   };
 }
 
-function mapDispatchToProps(dispatch: Dispatch<actions.actionType>) {
+function mapDispatchToProps(dispatch: Dispatch<actions.ActionType>) {
   return {
     getInitialData: () => dispatch(actions.getInitialDataAction()),
     getHot: () => dispatch(actions.getHotAction()),

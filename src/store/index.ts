@@ -1,13 +1,13 @@
 import { createStore, applyMiddleware } from "redux";
 import { createEpicMiddleware } from 'redux-observable';
-import storeType from "./storeType";
-import actionType from './actionType';
+import StoreType from "./storeType";
+import ActionType from './actionType';
 import rootReducer from './reducer';
 import rootEpic from './epic';
 
-const epicMiddleware = createEpicMiddleware<actionType, actionType, storeType>();
+const epicMiddleware = createEpicMiddleware<ActionType, ActionType, StoreType>();
 
-const store = createStore<storeType, actionType, {}, {}>(rootReducer, applyMiddleware(epicMiddleware));
+const store = createStore<StoreType, ActionType, {}, {}>(rootReducer, applyMiddleware(epicMiddleware));
 
 epicMiddleware.run(rootEpic);
 

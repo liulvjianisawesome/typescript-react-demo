@@ -1,4 +1,4 @@
-import { actionType } from "./actions";
+import { ActionType } from "./actions";
 import { IStoreType } from "./storeType";
 import { SET_STORE } from "./constant";
 
@@ -26,7 +26,7 @@ const initialState: IStoreType = {
   },
 };
 
-export default function reducer(state: IStoreType = initialState, action: actionType): IStoreType {
+export default function reducer(state: IStoreType = initialState, action: ActionType): IStoreType {
   switch (action.type) {
     case SET_STORE:
       return {

@@ -14,7 +14,7 @@ export interface IGetHotAction {
   type: PLAYLIST_GETHOT;
 }
 
-export type actionType = ISetStoreAction | IGetinitialDataAction | IGetHotAction;
+export type ActionType = ISetStoreAction | IGetinitialDataAction | IGetHotAction;
 
 export function getSetStoreAction(data: IStoreType): ISetStoreAction {
   return {

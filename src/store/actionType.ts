@@ -1,3 +1,3 @@
-import { actionType } from '../pages/Playlist/actions';
+import { ActionType } from '../pages/Playlist/actions';
 
-export default actionType;
+export default ActionType;
