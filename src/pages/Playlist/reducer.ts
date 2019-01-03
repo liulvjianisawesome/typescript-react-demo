@@ -21,12 +21,16 @@ const initialState: IStoreType = {
     3: "情感",
     4: "主题",
   },
+  tags: {
+
+  },
 };
 
 export default function reducer(state: IStoreType = initialState, action: actionType): IStoreType {
   switch (action.type) {
     case SET_STORE:
       return {
+        ...state,
         ...action.data,
       }
   }

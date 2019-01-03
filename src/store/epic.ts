@@ -1,3 +1,8 @@
-import { getInitialDataEpic } from '../pages/Playlist/epics';
+import { combineEpics } from 'redux-observable';
 
-export default getInitialDataEpic;
+import { getInitialDataEpic, getHotEpic } from '../pages/Playlist/epics';
+
+export default combineEpics(
+  getInitialDataEpic,
+  getHotEpic,
+);

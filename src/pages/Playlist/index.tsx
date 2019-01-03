@@ -1,15 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { IStoreType } from './storeType';
+import { ICategories, Sub, IStoreType } from './storeType';
+import RootStoreType from '../../store/storeType';
 import * as actions from './actions';
 
 import { Layout, Menu, Cascader } from 'antd';
 const { Header, Content, Footer } = Layout;
-
-interface IProps extends IStoreType {
-  getInitialData: () => void;
-}
 
 interface IOptions {
   value: string;
@@ -17,36 +14,49 @@ interface IOptions {
   children?: IOptions[];
 }
 
+function generateOptions(categories: ICategories, sub: Sub) {
+  const options: IOptions[] = [{
+    value: "",
+    label: "",
+  }];
+
+  const categoriesKeys = Object.keys(categories);
+  for (const key of categoriesKeys) {
+    const subCategories = sub && sub.filter(item => String(item.category) === key);
+    const children = [];
+    if (subCategories && subCategories.length > 0) {
+      for (const item of subCategories) {
+        children.push({
+          value: item.name,
+          label: item.name,
+        });
+      }
+    }
+    options.push({
+      value: key,
+      label: categories[key],
+      children,
+    });
+  }
+
+  return options;
+}
+
+interface IProps extends IStoreType {
+  getInitialData: () => void;
+  getHot: () => void;
+}
+
 class Playlist extends React.Component<IProps, {}> {
   public render() {
     const {
       categories,
       sub,
+      tags,
     } = this.props;
+    console.log(tags);
 
-    const options: IOptions[] = [{
-      value: "",
-      label: "",
-    }];
-
-    const categoriesKeys = Object.keys(categories);
-    for (const key of categoriesKeys) {
-      const subCategories = sub && sub.filter(item => String(item.category) === key);
-      const children = [];
-      if (subCategories && subCategories.length > 0) {
-        for (const item of subCategories) {
-          children.push({
-            value: item.name,
-            label: item.name,
-          });
-        }
-      }
-      options.push({
-        value: key,
-        label: categories[key],
-        children,
-      });
-    }
+    const options = generateOptions(categories, sub);
 
     return (
       <Layout>
@@ -76,18 +86,20 @@ class Playlist extends React.Component<IProps, {}> {
 
   public componentDidMount() {
     this.props.getInitialData();
+    this.props.getHot();
   }
 };
 
-function mapStateToProps(state: IStoreType) {
+function mapStateToProps(state: RootStoreType) {
   return {
-    ...state,
+    ...state.playlist,
   };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<actions.actionType>) {
   return {
     getInitialData: () => dispatch(actions.getInitialDataAction()),
+    getHot: () => dispatch(actions.getHotAction()),
   }
 }
 

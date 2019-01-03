@@ -1,3 +1,6 @@
-import reducer from '../pages/Playlist/reducer';
+import { combineReducers } from 'redux';
+import playlistReducer from '../pages/Playlist/reducer';
 
-export default reducer;
+export default combineReducers({
+  playlist: playlistReducer,
+});
